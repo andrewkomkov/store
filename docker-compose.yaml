@@ -1,0 +1,113 @@
+version: "3"
+services:
+  app:
+      build:
+        context: .
+        dockerfile: php/Dockerfile
+      networks:
+        - xcart_lan
+      volumes:
+        - ./data/:/opt/data
+        - ./logs/php.log:/var/log/fpm-php.www.log
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports: 
+      - "80:80"
+      - "443:443"
+    networks:
+      - xcart_lan
+    volumes:
+      - ./data/:/opt/data
+      - ./logs/nginx:/var/log/nginx/
+      - ./nginx/letsencrypt:/etc/letsencrypt/
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: xcart
+      MYSQL_USER: xcart
+      MYSQL_PASSWORD: xcart
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - xcart_lan
+  php:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    ports: 
+      - "9000:9000"
+    networks:
+      - xcart_lan
+    volumes:
+      - ./data/:/opt/data
+      - ./logs/php.log:/var/log/fpm-php.www.log
+  async_sema_commands:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    networks:
+      - xcart_lan
+    restart: always
+    volumes:
+      - ./data/:/opt/data
+    command: bash -c "./xcart/bin/console messenger:consume async_sema_commands -vv"
+  async_sema_images_commands:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    networks:
+      - xcart_lan
+    restart: always
+    volumes:
+      - ./data/:/opt/data
+    command: bash -c "./xcart/bin/console messenger:consume async_sema_images_commands -vv"
+  async_asap_commands:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    networks:
+      - xcart_lan
+    restart: always
+    volumes:
+      - ./data/:/opt/data
+    command: bash -c "./xcart/bin/console messenger:consume async_asap_commands -vv"
+  async_asap_images_commands:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    networks:
+      - xcart_lan
+    restart: always
+    volumes:
+      - ./data/:/opt/data
+    command: bash -c "./xcart/bin/console messenger:consume async_asap_images_commands -vv"
+  nfs:
+    image: itsthenetwork/nfs-server-alpine:12
+    container_name: nfs
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - SHARED_DIRECTORY=/opt/data
+    volumes:
+       - ./data/:/opt/data
+    ports:
+      - 2049:2049
+  redis:
+    image: redis:7.0.11-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes: 
+      - xc_redis:/data
+volumes:
+  xc_redis:
+    driver: local
+networks:
+  xcart_lan:
+    driver: bridge

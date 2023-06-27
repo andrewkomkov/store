@@ -1,0 +1,196 @@
+XCART_HOST_DETAILS_HTTP_HOST=app.tgvpn.tk
+XCART_HOST_DETAILS_HTTPS_HOST=app.tgvpn.tk
+
+
+
+###> symfony/framework-bundle ###
+APP_ENV=prod
+APP_DEBUG=0
+APP_SECRET=6bb0310e4855a6528191782f7a970953
+###< symfony/framework-bundle ###
+
+###> doctrine/doctrine-bundle ###
+# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+#
+# IMPORTANT: You MUST NOT specify driver in DATABASE_URL because we use a custom driver
+DATABASE_URL="//xcart:xcart@mysql:3306/xcart"
+DATABASE_UNIX_SOCKET=
+DATABASE_CHARSET=utf8mb4
+DATABASE_DEFAULT_TABLE_PREFIX="xc"
+
+# If the Mysql server is started with the "require_secure_transport=ON" flag,
+# then these parameters must contain the paths to the certificate files
+DATABASE_SSL_CA_CERT=
+DATABASE_SSL_CLIENT_CERT=
+DATABASE_SSL_CLIENT_KEY=
+###< doctrine/doctrine-bundle ###
+
+###> Redis ###
+REDIS_HOST="localhost"
+REDIS_PORT="6379"
+###< Redis ###
+
+###> nelmio/cors-bundle ###
+CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+###< nelmio/cors-bundle ###
+
+#
+# Cache settings
+#
+
+#  default cache ttl in seconds, 604800 - 1 week
+XCART_CACHE_DEFAULT_CACHE_TTL=604800
+
+#
+# X-Cart 5 HTTP & HTTPS host, web directory where cart installed and allowed domains
+#
+# NOTE:
+# You should put here hostname ONLY without http:// or https:// prefixes.
+# Do not put slashes after the hostname.
+# Web dir is the directory in the URL, not the filesystem path.
+# Web dir must start with slash and have no slash at the end.
+# The only exception is when you configure for the root of the site,
+# in which case you should leave the option empty.
+# Domains should be listed separated by commas.
+#
+# WARNING: Do not set the "$" sign before the parameter names!
+#
+# EXAMPLE 1:
+#  XCART_HOST_DETAILS_HTTP_HOST=www.yourhost.com
+#  XCART_HOST_DETAILS_HTTPS_HOST=www.securedirectories.com/yourhost.com
+#  XCART_HOST_DETAILS_WEB_DIR=/shop
+#  XCART_HOST_DETAILS_DOMAINS=www.yourhost2.com,yourhost3.com
+#
+# will result in the following URLs:
+#
+#  http://www.yourhost.com/shop
+#  https://www.securedirectories.com/yourhost.com/shop
+#
+# EXAMPLE 2:
+#  XCART_HOST_DETAILS_HTTP_HOST=www.yourhost.com
+#  XCART_HOST_DETAILS_HTTPS_HOST=www.yourhost.com
+#  XCART_HOST_DETAILS_WEB_DIR=
+#
+# will result in the following URLs:
+#
+#  http://www.yourhost.com
+#  https://www.yourhost.com
+
+XCART_HOST_DETAILS_ADMIN_HOST=
+
+# Web dir is the directory in the URL, not the filesystem path.
+# Web dir must start with slash and have no slash at the end.
+# The only exception is when you configure for the root of the site,
+# in which case you should leave the option empty.
+XCART_HOST_DETAILS_WEB_DIR=
+XCART_HOST_DETAILS_DOMAINS=
+XCART_HOST_DETAILS_ADMIN_SELF=admin/
+XCART_HOST_DETAILS_CART_SELF=/
+XCART_HOST_DETAILS_FORCE_HTTPS=
+
+# The XCART_PUBLIC_DIR variable must be either empty (preferred) or "1" and depends on the web server root configuration.
+# If web server root points to the store's /public directory the value should be empty.
+# If web server root points to the store's root directory the value should be "1". This option exists for compatibility
+# reasons only. You need to reconfigure the web server to the preferred option at the first opportunity.
+XCART_PUBLIC_DIR=
+
+# Installation path of Image Magick executables:
+# for example:
+# XCART_IMAGES_IMAGE_MAGICK_PATH=C:\Program Files\ImageMagick-6.7.0-Q16\   (in Windows)
+# XCART_IMAGES_IMAGE_MAGICK_PATH=/usr/local/imagemagick/ (in Unix/Linux )
+# You should consult with your hosting provider to find where Image Magick is installed
+# If you leave it empty then PHP GD library will be used.
+XCART_IMAGES_IMAGE_MAGICK_PATH=
+
+# Installer authcode.
+# A person who do not know the auth code can not access the installation script.
+# Installation authcode is created authomatically and stored in this section.
+XCART_INSTALLER_DETAILS_AUTH_CODE=6870dfcc5a8cfd17
+XCART_INSTALLER_DETAILS_SHARED_SECRET_KEY=c7b7b17490b24f448241c8ff1e5ee1ba
+
+#
+# Logging configuration
+#
+# see https://github.com/Seldaek/monolog/blob/main/doc/01-usage.md#log-levels for details
+LOGGER_LEVEL=300
+
+# Empty value will stop logging to files
+LOGGER_FILE_STREAM_NAME=xlite
+
+# Amazon AWS CloudWatch configuration and credentials
+LOGGER_CLOUD_WATCH_REGION=eu-west-1
+LOGGER_CLOUD_WATCH_VERSION=latest
+LOGGER_CLOUD_WATCH_KEY=
+LOGGER_CLOUD_WATCH_SECRET=
+LOGGER_CLOUD_WATCH_TOKEN=
+LOGGER_CLOUD_WATCH_GROUP_NAME=
+LOGGER_CLOUD_WATCH_STREAM_NAME=xlite
+LOGGER_CLOUD_WATCH_RETENTION_DAYS=30
+
+#
+# Logging details
+#
+XCART_LOG_DETAILS_SUPPRESS_ERRORS=1
+XCART_LOG_DETAILS_SUPPRESS_LOG_ERRORS=
+
+#
+# Service tool
+#
+XCART_SERVICE_IS_TRIAL=
+XCART_IS_UPDATE_AVAILABLE=1
+
+#
+# Affiliate options
+#
+XCART_AFFILIATE_ID=
+
+#
+# Storefront options
+#
+
+# Do not close target=callback for payments if storefront is closed
+XCART_STOREFRONT_OPTIONS_CALLBACK_OPENED=1
+# Works only with 'Aggregate CSS files' option enabled
+XCART_STOREFRONT_OPTIONS_OPTIMIZE_CSS=1
+
+#
+# Other options
+#
+
+# Translation drive code - auto / gettext / db
+XCART_OTHER_TRANSLATION_DRIVER=auto
+# Use X-Sendfile and X-Accel-Redirect to download files
+# Note that server should be properly configured
+XCART_OTHER_USE_SENDFILE=
+
+XCART_OTHER_TAR_EXECUTABLE=
+
+#
+# Trial
+#
+XCART_TRIAL_END_DATE=
+
+#
+# Demo
+#
+XCART_DEMO_DEMO_MODE=
+
+# Enable to consume jobs via worker (php bin/console messenger:consume)
+BACKGROUND_JOBS_ENABLED=false
+
+# Enable to consume autoimport jobs via worker (php bin/console messenger:consume)
+FORCE_AUTOIMPORT_BACKGROUND_JOBS_ENABLED=true
+
+###> symfony/messenger ###
+# Choose one of the transports below
+MESSENGER_TRANSPORT_DSN=doctrine://default
+# MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
+# MESSENGER_TRANSPORT_DSN=redis://localhost:6379/messages
+###< symfony/messenger ###
+
+###> lexik/jwt-authentication-bundle ###
+JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
+JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
+JWT_PASSPHRASE=3d827c9d3ea0851f6921d251be7b20d0
+###< lexik/jwt-authentication-bundle ###
